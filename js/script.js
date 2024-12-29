@@ -1,66 +1,79 @@
 // AudioContext 공유
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
+const plus = 20;
 // 탭별 음계 데이터 (주파수로 변환된 값)
 const tabNotes = {
     BossaNova: [
-        246.94, // B
-        287.18, // C#
-        293.66, // D
-        329.63, // E
-        369.99, // F#
-        392.00, // G
-        440.00, // A
-        493.88, // B (옥타브)
-        543.25, // C#
-        587.33, // D
-        659.25,  // E
-        466.16 // Bb
-    ],
-    CityPop: [
-        392.00, // G
-        466.16, // Bb
-        293.66, // D
-        349.23, // F
-        329.63, // E
-        440.00, // A
-        261.63, // C
-        369.99, // Gb
-        392.00, // G (옥타브)
-        440.00, // A
-        493.88, // B
-        523.25  // C
-    ],
-    Debussy: [
-        277.18, // C#
-        329.63, // E
-        440.00, // A
-        311.13, // D#
-        369.99, // F#
-        415.30, // G#
-        440.00, // A
-        466.16, // Bb
-        493.88, // B
-        523.25, // C#
-        587.33, // D
-        659.25  // E
+        440.00+plus,   // A
+        493.88+plus,   // B
+        554.37+plus,   // C#
+        587.33+plus,   // D
+        659.25+plus,   // E
+        739.99+plus,   // F#
+        830.61+plus,   // G#
+        880.00+plus,   // *A
+        987.77+plus,   // *B
+        1108.73+plus,  // *C#
+        1174.66+plus,  // *D
+        1318.51+plus   // *E
     ]
+    ,
+    CityPop: [
+        440.00,   // A
+        493.88,   // B
+        554.37,   // C#
+        587.33,   // D
+        659.25,   // E
+        739.99,   // F#
+        830.61,   // G#
+        880.00,   // *A
+        987.77,   // *B
+        1108.73,  // *C#
+        1174.66,  // *D
+        1318.51   // *E
+    ]
+    ,
+    Debussy: [
+        440.00,   // A
+        493.88,   // B
+        554.37,   // C#
+        587.33,   // D
+        659.25,   // E
+        739.99,   // F#
+        830.61,   // G#
+        880.00,   // *A
+        987.77,   // *B
+        1108.73,  // *C#
+        1174.66,  // *D
+        1318.51   // *E
+    ]
+    
 };
 
+// 탭별 음 이름 데이터
+const tabNotesLabels = {
+    BossaNova: ['A', 'B', 'C#', 'D', 'E', 'F#', 'G#', '*A', '*B', '*C#', '*D', '*E'],
+    CityPop: ['A', 'B', 'C#', 'D', 'E', 'F#', 'G#', '*A', '*B', '*C#', '*D', '*E'],
+    Debussy: ['A', 'B', 'C#', 'D', 'E', 'F#', 'G#', '*A', '*B', '*C#', '*D', '*E']
+};
 
-
-
-
-// QWERTY 키 배열 매핑
-const keyMapping = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']'];
+// 탭별 음색 설정
+const tabWaveforms = {
+    BossaNova: 'sine',       // 부드러운 피아노 소리
+    CityPop: 'square',       // 기계음 느낌
+    Debussy: 'triangle'      // 부드럽고 따뜻한 소리
+};
 
 // 현재 활성화된 탭
 let currentTab = 'BossaNova';
-const tabNotesLabels = {
-    BossaNova: ['B', 'C#', 'D', 'E', 'F#', 'G', 'A', 'B♭', '*B', '*C#', '*D', '*E'],
-    CityPop: ['G', 'B♭', 'D', 'F', 'E', 'A', 'C', 'G♭', '*G', '*A', '*B', '*C'],
-    Debussy: ['C#', 'E', 'A', 'D#', 'F#', 'G#', 'A', 'B♭', '*B', '*C#', '*D', '*E']
-};
+
+// 키보드 키 매핑 (QWERTY)
+const keyMapping = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']'];
+
+// 슬라이더 값 초기화
+let reverbTime = 0.5;
+
+// 음 이름 업데이트 함수
 function updateNoteLabels() {
     const notes = tabNotesLabels[currentTab];
     document.querySelectorAll('.mushroom').forEach((mushroom, index) => {
@@ -71,7 +84,7 @@ function updateNoteLabels() {
     });
 }
 
-// 탭 버튼 클릭 이벤트 (음 이름 업데이트 추가)
+// 탭 버튼 클릭 이벤트
 document.querySelectorAll('.tab-button').forEach((button) => {
     button.addEventListener('click', () => {
         currentTab = button.getAttribute('data-tab'); // 활성화된 탭 변경
@@ -84,10 +97,8 @@ document.querySelectorAll('.tab-button').forEach((button) => {
 
 // 초기 음 이름 업데이트
 updateNoteLabels();
-// 슬라이더 값 초기화
-let reverbTime = 0.5;
 
-// 슬라이더 요소 가져오기
+// 슬라이더 이벤트
 const reverbSlider = document.getElementById("reverb-slider");
 if (reverbSlider) {
     reverbSlider.addEventListener("input", (event) => {
@@ -96,21 +107,6 @@ if (reverbSlider) {
 } else {
     console.error("슬라이더를 찾을 수 없습니다. HTML에서 확인해주세요.");
 }
-
-// 탭 버튼 클릭 이벤트
-document.querySelectorAll('.tab-button').forEach((button) => {
-    button.addEventListener('click', () => {
-        // 활성화된 탭 변경
-        currentTab = button.getAttribute('data-tab');
-
-        // 탭 제목 변경
-        document.getElementById('tab-title').textContent = `${currentTab} 🎵`;
-
-        // 활성화 상태 업데이트
-        document.querySelectorAll('.tab-button').forEach((btn) => btn.classList.remove('active'));
-        button.classList.add('active');
-    });
-});
 
 // 활성화된 키 추적
 const activeKeys = {};
@@ -124,7 +120,7 @@ function playToneWithFadeOut(frequency, key) {
     const oscillator = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
 
-    oscillator.type = 'sine';
+    oscillator.type = tabWaveforms[currentTab]; // 현재 탭의 음색 설정
     oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
 
     oscillator.connect(gainNode);
@@ -147,7 +143,22 @@ function playToneWithFadeOut(frequency, key) {
     };
 }
 
-// 공통으로 동작하는 함수
+// 키 입력 처리
+document.addEventListener('keydown', (event) => {
+    const keyIndex = keyMapping.indexOf(event.key);
+    if (keyIndex !== -1) {
+        handleMushroomAction(keyIndex + 1); // 키 인덱스에 맞는 버섯 실행
+    }
+});
+
+// 버섯 클릭 이벤트
+document.querySelectorAll('.mushroom').forEach((mushroom, index) => {
+    mushroom.addEventListener('click', () => {
+        handleMushroomAction(index + 1);
+    });
+});
+
+// 공통 동작 함수
 function handleMushroomAction(key) {
     const mushroom = document.querySelector(`.mushroom[data-sound="${key}"]`);
     if (!mushroom) {
@@ -155,7 +166,6 @@ function handleMushroomAction(key) {
         return;
     }
 
-    // 현재 탭의 음계에서 주파수 가져오기
     const frequency = tabNotes[currentTab][key - 1];
     if (frequency) {
         playToneWithFadeOut(frequency, key); // 소리 재생
@@ -164,21 +174,6 @@ function handleMushroomAction(key) {
         console.error(`Frequency not found for key: ${key}`);
     }
 }
-
-// QWERTY 키 입력 이벤트
-document.addEventListener('keydown', (event) => {
-    const keyIndex = keyMapping.indexOf(event.key);
-    if (keyIndex !== -1) {
-        handleMushroomAction(keyIndex + 1); // 키 인덱스에 맞는 버섯 실행
-    }
-});
-
-// 버섯 클릭 이벤트 (1~12)
-document.querySelectorAll('.mushroom').forEach((mushroom, index) => {
-    mushroom.addEventListener('click', () => {
-        handleMushroomAction(index + 1);
-    });
-});
 
 // 클릭 시 애니메이션 효과 추가
 function animateMushroom(mushroom) {
