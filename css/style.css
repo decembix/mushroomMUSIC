@@ -1,0 +1,148 @@
+/* 전체 배경 설정 */
+@font-face {
+    font-family: 'SmallestPixel7';
+    src: url('../fonts/smallest-pixel-7.regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: #f7ebfb; /* 배경색 */
+    font-family: 'SmallestPixel7', Arial, sans-serif; /* Smallest Pixel 7 적용 */
+    color: #333;
+    margin: 0;
+}
+h1 {
+    font-weight: normal;
+    font-size: 24px;
+    color: #333;
+}
+
+p {
+    font-weight: normal;
+    font-size: 16px;
+}
+
+/* 전체 레이아웃 스타일 */
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8e6ff;
+    padding: 10px;
+}
+.tab-button {
+    margin: 5px 0;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #dfc4ff;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+}
+
+.tab-button.active {
+    background-color: #b896ff;
+    color: #fff;
+}
+
+.palette-button {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    background-color: #dfc4ff;
+    cursor: pointer;
+    text-align: center;
+}
+
+.palette-button.active {
+    background-color: #b896ff;
+    color: #fff;
+}
+
+/* 메인 콘텐츠 영역 */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    justify-content: center;
+}
+
+/* 상단 제목 스타일 */
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* 버섯 가로 정렬 및 스타일 */
+.mushroom-container {
+    display: flex;
+    gap: 1em; /* 버섯 사이 간격 */
+    justify-content: center;
+    /*align-items: center;*/
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.mushroom {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: url("../assets/images/image1.png") center/contain no-repeat;
+    cursor: pointer;
+    transition: transform 0.1s; /* 애니메이션 */
+}
+.mushroom .note-label {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #444;
+    text-align: center;
+}
+
+.mushroom.clicked {
+    transform: scale(0.9); /* 크기 축소 효과 */
+}
+
+
+.mushroom:active {
+    transform: scale(0.9);
+}
+/*슬라이더*/
+.slider-container {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+#reverb-slider {
+    width: 150px;
+    margin-top: 5px;
+}
+
+/* 반응형 디자인: 모바일 화면에서 레이아웃 조정 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}

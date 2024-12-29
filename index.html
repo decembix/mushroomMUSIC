@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Maker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <button class="tab-button" data-tab="BossaNova">BossaNova</button>
+            <button class="tab-button" data-tab="CityPop">CityPop</button>
+            <button class="tab-button" data-tab="Debussy">Debussy</button>
+        </div>
+        
+        <div class="main">
+            <h1 id="tab-title">BossaNova 🎵</h1>
+            <div class="mushroom-container">
+                <!-- 버섯 12개 -->
+                <div class="mushroom" data-sound="1">
+                    <span class="note-label"></span>
+                </div>
+                <div class="mushroom" data-sound="2">
+                    <span class="note-label"></span>
+                </div>
+                <div class="mushroom" data-sound="3">
+                    <span class="note-label"></span>
+                </div>
+                <div class="mushroom" data-sound="4">
+                    <span class="note-label"></span>
+                </div>
+                <div class="mushroom" data-sound="5">
+                    <span class="note-label"></span>
+                </div>
+                <div class="mushroom" data-sound="6">
+                    <span class="note-label"></span>
+                </div>
+                <div class="mushroom" data-sound="7">
+                    <span class="note-label"></span>
+                </div>
+                <div class="mushroom" data-sound="8">
+                    <span class="note-label"></span>
+                </div>
+                <div class="mushroom" data-sound="9">
+                    <span class="note-label"></span>
+                </div>
+                <div class="mushroom" data-sound="10">
+                    <span class="note-label"></span>
+                </div>
+                <div class="mushroom" data-sound="11">
+                    <span class="note-label"></span>
+                </div>
+                <div class="mushroom" data-sound="12">
+                    <span class="note-label"></span>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+    <div class="slider-container">
+        <label for="reverb-slider">울림 조절</label>
+        <input type="range" id="reverb-slider" min="0.5" max="2.5" step="0.1" value="0.5">
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
