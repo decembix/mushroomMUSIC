@@ -3,7 +3,7 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const plus = 20;
 // 탭별 음계 데이터 (주파수로 변환된 값)
 const tabNotes = {
-    BossaNova: [
+    piano: [
         440.00+plus,   // A
         493.88+plus,   // B
         554.37+plus,   // C#
@@ -18,7 +18,7 @@ const tabNotes = {
         1318.51+plus   // *E
     ]
     ,
-    CityPop: [
+    electric: [
         440.00,   // A
         493.88,   // B
         554.37,   // C#
@@ -33,7 +33,7 @@ const tabNotes = {
         1318.51   // *E
     ]
     ,
-    Debussy: [
+    harp: [
         440.00,   // A
         493.88,   // B
         554.37,   // C#
@@ -52,20 +52,20 @@ const tabNotes = {
 
 // 탭별 음 이름 데이터
 const tabNotesLabels = {
-    BossaNova: ['A', 'B', 'C#', 'D', 'E', 'F#', 'G#', '*A', '*B', '*C#', '*D', '*E'],
-    CityPop: ['A', 'B', 'C#', 'D', 'E', 'F#', 'G#', '*A', '*B', '*C#', '*D', '*E'],
-    Debussy: ['A', 'B', 'C#', 'D', 'E', 'F#', 'G#', '*A', '*B', '*C#', '*D', '*E']
+    piano: ['A', 'B', 'C#', 'D', 'E', 'F#', 'G#', '*A', '*B', '*C#', '*D', '*E'],
+    electric: ['A', 'B', 'C#', 'D', 'E', 'F#', 'G#', '*A', '*B', '*C#', '*D', '*E'],
+    harp: ['A', 'B', 'C#', 'D', 'E', 'F#', 'G#', '*A', '*B', '*C#', '*D', '*E']
 };
 
 // 탭별 음색 설정
 const tabWaveforms = {
-    BossaNova: 'sine',       // 부드러운 피아노 소리
-    CityPop: 'square',       // 기계음 느낌
-    Debussy: 'triangle'      // 부드럽고 따뜻한 소리
+    piano: 'triangle',       // 부드러운 피아노 소리
+    electric: 'square',       // 기계음 느낌
+    harp: 'sine'      // 부드럽고 따뜻한 소리
 };
 
 // 현재 활성화된 탭
-let currentTab = 'BossaNova';
+let currentTab = 'piano';
 
 // 키보드 키 매핑 (QWERTY)
 const keyMapping = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']'];
@@ -98,15 +98,6 @@ document.querySelectorAll('.tab-button').forEach((button) => {
 // 초기 음 이름 업데이트
 updateNoteLabels();
 
-// 슬라이더 이벤트
-const reverbSlider = document.getElementById("reverb-slider");
-if (reverbSlider) {
-    reverbSlider.addEventListener("input", (event) => {
-        reverbTime = parseFloat(event.target.value); // 슬라이더 값 업데이트
-    });
-} else {
-    console.error("슬라이더를 찾을 수 없습니다. HTML에서 확인해주세요.");
-}
 
 // 활성화된 키 추적
 const activeKeys = {};
@@ -175,7 +166,7 @@ function handleMushroomAction(key) {
     }
 }
 
-// 클릭 시 애니메이션 효과 추가
+// 애니메이션 효과 추가
 function animateMushroom(mushroom) {
     if (mushroom) {
         mushroom.classList.add('clicked');

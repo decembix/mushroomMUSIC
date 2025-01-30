@@ -9,13 +9,14 @@
 <body>
     <div class="container">
         <div class="sidebar">
-            <button class="tab-button" data-tab="BossaNova">BossaNova</button>
-            <button class="tab-button" data-tab="CityPop">CityPop</button>
-            <button class="tab-button" data-tab="Debussy">Debussy</button>
+            <button class="tab-button" data-tab="piano">piano</button>
+            <button class="tab-button" data-tab="electric">electric</button>
+            <button class="tab-button" data-tab="harp">harp</button>
         </div>
-        
+      
+
         <div class="main">
-            <h1 id="tab-title">BossaNova 🎵</h1>
+            <h1 id="tab-title">piano 🎵</h1>
             <div class="mushroom-container">
                 <!-- 버섯 12개 -->
                 <div class="mushroom" data-sound="1">
@@ -55,14 +56,12 @@
                     <span class="note-label"></span>
                 </div>
             </div>
-            
-            
         </div>
     </div>
     <div class="slider-container">
-        <label for="reverb-slider">울림 조절</label>
         <input type="range" id="reverb-slider" min="0.5" max="2.5" step="0.1" value="0.5">
     </div>
+
     <script src="js/script.js"></script>
 </body>
 </html>
