@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname)));
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
-
+app.get('/health', (req, res) => res.send('OK'));
 // 서버 시작
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
